@@ -1,0 +1,54 @@
+.bg-index {
+  background: url("/static/img/background.jpg") no-repeat fixed;
+  background-size: 100% auto;
+}
+
+a.navlink {
+  color: #fffef6 !important;
+  text-decoration: none;
+}
+
+a.navlink:hover {
+  color: #999999 !important;
+}
+
+.bg-dark {
+  background-color: #2e2e2e !important;
+}
+
+.footer-section {
+  position: absolute;
+  bottom: 0;
+}
+
+.ms-footer {
+  background-color: #202020;
+}
+
+.ms-footer p {
+  color: #7f7f7f;
+}
+
+.ms-footer a:hover {
+  color: #6ab43e;
+  text-decoration: none;
+}
+
+.ms-footer-bottom span {
+  font-size: 13px;
+  line-height: 38px;
+}
+
+.ms-footer-bottom a:hover {
+  color: #999;
+}
+
+.img-card-200 {
+  width: fit-content;
+  max-height: 200px;
+}
+
+.img-card-400 {
+  width: fit-content;
+  max-height: 400px !important;
+}

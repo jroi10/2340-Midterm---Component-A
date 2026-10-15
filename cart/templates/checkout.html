@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-3">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col mx-auto mb-3">
+                <h2>Order Confirmation</h2>
+                <hr>
+                <p>Your order has successfully been completed.</p>
+                <p class="text-gray">Order number: <b>#{{ template_data.order_id }}</b></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
