@@ -22,3 +22,9 @@ class MovieReview(models.Model):
 
     def __str__(self):
         return str(self.id) + " - " + self.movie.name
+
+class TopCommenter(User):
+    class Meta:
+        proxy = True
+        verbose_name = "Top Commenter"
+        verbose_name_plural = "Top Commenters"
