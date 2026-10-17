@@ -57,9 +57,7 @@
             <a class="navlink" href="{% url 'cart.index' %}">Cart</a>
             <div class="vr bg-white mx-2 d-none d-lg-block"></div>
             {% if user.is_authenticated %}
-            <a href="{% url 'accounts.orders' %}" class="nav-link"
-              >Orders</a
-            >
+            <a href="{% url 'accounts.orders' %}" class="nav-link">Orders</a>
             <a href="{% url 'accounts.logout' %}" class="nav-link"
               >Logout ({{ user.username }})</a
             >
@@ -73,59 +71,56 @@
     </nav>
 
     <!-- page content -->
-    <div>{% block content %} {% endblock content %}</div>
+    <div style="flex: 1 0 auto;">{% block content %} {% endblock content %}</div>
 
     <!-- footer -->
-    <div style="
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-">
-       <section class="p-3 ms-footer d-none d-md-block">
-      <div class="container">
-        <div class="row mt-3 text-white">
-          <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4">
-            <b>GT Movies Store</b>
-            <hr />
-            <p>
-              Welcome to GT Movies Store — your one-stop shop for all your entertainment needs! We have a variety of genres and movies available for purchasing.
-            </p>
-          </div>
-          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
-            <b>LINKS</b>
-            <hr />
-            <p>
-              <a class="navlink" href="{% url 'home.about' %}">About</a>
-            </p>
-            <p>
-              <a class="navlink" href="{% url 'movies.index' %}">Movies</a>
-            </p>
-          </div>
-          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
-            <b>Contact</b>
-            <hr />
-            <p>
-              <i class="fas fa-home me-2">Atlanta, GA 30332</i>
-            </p>
-            <p>
-              <i class="fas fa-envelope me-2"></i> srikar.kusumanchi@gatech.edu
-            </p>
+    <div style="flex-shrink: 0;">
+      <section class="p-3 ms-footer d-none d-md-block">
+        <div class="container">
+          <div class="row mt-3 text-white">
+            <div class="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4">
+              <b>GT Movies Store</b>
+              <hr />
+              <p>
+                Welcome to GT Movies Store — your one-stop shop for all your
+                entertainment needs! We have a variety of genres and movies
+                available for purchasing.
+              </p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
+              <b>LINKS</b>
+              <hr />
+              <p>
+                <a class="navlink" href="{% url 'home.about' %}">About</a>
+              </p>
+              <p>
+                <a class="navlink" href="{% url 'movies.index' %}">Movies</a>
+              </p>
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
+              <b>Contact</b>
+              <hr />
+              <p>
+                <i class="fas fa-home me-2">Atlanta, GA 30332</i>
+              </p>
+              <p>
+                <i class="fas fa-envelope me-2"></i>
+                srikar.kusumanchi@gatech.edu
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="p-3 ms-footer-bottom bg-dark">
-      <div class="container d-flex justify-content-between">
-        <div class="me-5 text-white">
-          <span>DESIGNED BY Srikar Kusumanchi</span>
+      </section>
+      <section class="p-3 ms-footer-bottom bg-dark">
+        <div class="container d-flex justify-content-between">
+          <div class="me-5 text-white">
+            <span>DESIGNED BY Srikar Kusumanchi</span>
+          </div>
         </div>
-      </div>
-      <div class="text-white">
-        <span>© Copyright - 2026</span>
-      </div>
-    </section>
+        <div class="text-white">
+          <span>© Copyright - 2026</span>
+        </div>
+      </section>
     </div>
   </body>
 </html>
