@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main">
+    {% if top_users %}
+    <div class="module" style="padding: 16px; margin-bottom: 24px;">
+        <h2>Most Comments Posted</h2>
+        {% for user in top_users %}
+        <p style="font-size: 1.4em; margin: 12px 0;">
+            <strong>{{ user.username }}</strong> &mdash; {{ top_count }} comment{{ top_count|pluralize }}
+        </p>
+        {% endfor %}
+        {% if top_users|length > 1 %}
+        <p>These users are tied for the most comments</p>
+        {% endif %}
+    </div>
+
+    <div class="module">
+        <h2>All Commenters</h2>
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Comments Posted</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in commenters %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.comment_count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No comments have been posted yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
