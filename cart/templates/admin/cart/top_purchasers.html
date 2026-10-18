@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main">
+    <form method="get">
+        <input type="number" min="1" name="size" placeholder="List size">
+        <input type="submit" value="Update">
+    </form>
+
+    <div class="module">
+        <h2>Top Purchasers</h2>
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Movies Purchased</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in purchasers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.purchase_count | default:0 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+

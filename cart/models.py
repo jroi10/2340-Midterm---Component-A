@@ -21,3 +21,9 @@ class InvoiceItem(models.Model):
 
     def __str__(self):
         return str(self.id) + " - " + self.movie.name
+
+class TopPurchaser(User):
+    class Meta:
+        proxy = True
+        verbose_name = "Top Purchaser"
+        verbose_name_plural = "Top Purchasers"
