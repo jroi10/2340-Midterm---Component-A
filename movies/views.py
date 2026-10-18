@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, MovieReview
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Count, Sum
+from cart.models import InvoiceItem
+
 # Create your views here.
 
 def index(request):
@@ -69,3 +74,25 @@ def report_inappropriate(request, id, review_id):
     review = get_object_or_404(MovieReview, id=review_id)
     review.delete()
     return redirect("movies.movie", id=id)
+
+@staff_member_required
+def view_movie_stats(request):
+    purchased_movies = Movie.objects.annotate(purchase_count=Sum("invoiceitem__quantity")).filter(purchase_count__gt=0).order_by("-purchase_count", "name")
+    reviewed_movies = Movie.objects.annotate(review_count=Count("moviereview")).filter(review_count__gt=0).order_by("-review_count", "name")
+
+    top_purchase_count = purchased_movies[0].purchase_count if purchased_movies else 0
+    top_review_count = reviewed_movies[0].review_count if reviewed_movies else 0
+
+    top_purchased_movies = [movie for movie in purchased_movies if movie.purchase_count == top_purchase_count]
+    top_reviewed_movies = [movie for movie in reviewed_movies if movie.review_count == top_review_count]
+
+    template_data = {}
+    template_data["title"] = "Movie Stats"
+    template_data["purchased_movies"] = purchased_movies
+    template_data["reviewed_movies"] = reviewed_movies
+    template_data["top_purchase_count"] = top_purchase_count
+    template_data["top_review_count"] = top_review_count
+    template_data["top_purchased_movies"] = top_purchased_movies
+    template_data["top_reviewed_movies"] = top_reviewed_movies
+
+    return render(request, "admin/movies/top_review_purchase.html", {**admin.site.each_context(request), "title": "Movie Stats", "template_data": template_data})
