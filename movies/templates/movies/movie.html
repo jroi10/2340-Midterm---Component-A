@@ -7,6 +7,14 @@
         <hr />
         <p><b>Description: </b>{{ template_data.movie.description }}</p>
         <p><b>Price: </b>${{ template_data.movie.price }}</p>
+        <p>
+          <b>Average Rating: </b>
+          {% if template_data.average_rating %}
+          {{ template_data.average_rating|floatformat:1 }} / 5 ({{ template_data.rating_count }} rating{{ template_data.rating_count|pluralize }})
+          {% else %}
+          No ratings exist yet
+          {% endif %}
+        </p>
         <p class="card-text">
           <form action="{% url 'cart.add' id=template_data.movie.id %}" method="post">
             <div class="row">
@@ -25,6 +33,35 @@
             </div>
           </form>
         </p>
+        {% if user.is_authenticated %}
+        <form action="{% url 'movies.rate_movie' id=template_data.movie.id %}" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-auto">
+              <div class="input-group col-auto">
+                <div class="input-group-text">Your Rating</div>
+                <select name="rating" class="form-select" required>
+                  <option value="">Select</option>
+                  {% for option in template_data.rating_options %}
+                  <option value="{{ option }}" {% if template_data.user_rating.rating == option %}selected{% endif %}>
+                    {{ option }} Star{{ option|pluralize }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-auto">
+              <button class="btn bg-dark text-white" type="submit">
+                Submit Rating
+              </button>
+            </div>
+          </div>
+        </form>
+        {% if template_data.user_rating %}
+        <p class="mt-2">You rated this movie {{ template_data.user_rating.rating }} / 5</p>
+        {% endif %}
+        <br />
+        {% endif %}
         <h2>Reviews</h2>
         <hr />
         <ul class="list-group">

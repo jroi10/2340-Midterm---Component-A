@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.template.response import TemplateResponse
-from .models import Movie, MovieReview, TopCommenter
+from .models import Movie, MovieReview, TopCommenter, MovieRating
 
 # Register your models here.
 class MovieAdmin(admin.ModelAdmin):
@@ -39,3 +39,4 @@ class TopCommenterAdmin(admin.ModelAdmin):
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(MovieReview)
 admin.site.register(TopCommenter, TopCommenterAdmin)
+admin.site.register(MovieRating)
