@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Movie, MovieReview
+from .models import Movie, MovieReview, MovieRating
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import admin
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Avg
 from cart.models import InvoiceItem
 
 # Create your views here.
@@ -24,11 +24,20 @@ def index(request):
 def movie(request, id):
     movie = Movie.objects.get(id=id)
     reviews = MovieReview.objects.filter(movie=movie)
+    ratings = MovieRating.objects.filter(movie=movie)
+
+    user_rating = None
+    if request.user.is_authenticated:
+        user_rating = MovieRating.objects.filter(movie=movie, user=request.user).first()
 
     template_data = {}
     template_data["title"] = movie.name
     template_data["movie"] = movie
     template_data["reviews"] = reviews
+    template_data["average_rating"] = ratings.aggregate(Avg("rating"))["rating__avg"]
+    template_data["rating_count"] = ratings.count()
+    template_data["user_rating"] = user_rating
+    template_data["rating_options"] = [1, 2, 3, 4, 5]
     return render(request, 'movies/movie.html', {"template_data" : template_data})
 
 @login_required
@@ -96,3 +105,17 @@ def view_movie_stats(request):
     template_data["top_reviewed_movies"] = top_reviewed_movies
 
     return render(request, "admin/movies/top_review_purchase.html", {**admin.site.each_context(request), "title": "Movie Stats", "template_data": template_data})
+
+@login_required
+def rate_movie(request, id):
+    if request.method == "POST" and request.POST["rating"] in ["1", "2", "3", "4", "5"]:
+        movie = Movie.objects.get(id=id)
+        rating = MovieRating.objects.filter(movie=movie, user=request.user).first()
+        if rating is None:
+            rating = MovieRating()
+            rating.movie = movie
+            rating.user = request.user
+        rating.rating = int(request.POST["rating"])
+        rating.save()
+    
+    return redirect("movies.movie", id=id)
