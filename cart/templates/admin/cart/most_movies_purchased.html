@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module" style="padding: 16px;">
+        <h2>User With The Most Movies Purchased</h2>
+        {% for user in top_users %}
+        <p style="font-size: 1.4em; margin: 12px 0;">
+            <strong>{{ user.username }}</strong> &mdash;
+            {{ top_count }} movie{{ top_count|pluralize }} purchased
+        </p>
+        {% empty %}
+        <p>No purchased made</p>
+        {% endfor %}
+        {% if top_users|length > 1 %}
+        <p>These users are tied for the most movies purchased!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+

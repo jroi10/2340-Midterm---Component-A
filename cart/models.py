@@ -27,3 +27,9 @@ class TopPurchaser(User):
         proxy = True
         verbose_name = "Top Purchaser"
         verbose_name_plural = "Top Purchasers"
+
+class MostMoviesPurchased(User):
+    class Meta:
+        proxy = True
+        verbose_name = "Most Movies Purchased"
+        verbose_name_plural = "Most Movies Purchased"
